@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="asio">
+      <UniqueIdentifier>{2b4ef948-f8ca-4192-9ea4-17612071a90e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asio\include">
+      <UniqueIdentifier>{65eb437b-d66a-43a3-8f42-790aba294b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asio\src">
+      <UniqueIdentifier>{d575f292-70ac-46e2-a22f-d1573e414ecb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+    <None Include="res\MyASIO.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="res\MyASIO.ico">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyASIO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyASIODlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TestXAsio.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioBase.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioClient.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioHelper.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioInterface.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioPackage.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioPacker.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioPool.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioServer.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioService.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioSocket.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioTCP.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioTCPSocket.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioTimer.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XAsioUDP.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MyASIO.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MyASIODlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\XAsioClient.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\XAsioHelper.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\XAsioInterface.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\XAsioPacker.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\XAsioServer.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\XAsioService.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\XAsioSocket.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\XAsioTCP.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\XAsioTCPSocket.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\XAsioUDP.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MyASIO.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
