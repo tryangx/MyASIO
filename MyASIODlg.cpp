@@ -233,7 +233,7 @@ void CMyASIODlg::OnBnClickedButtonSendserver()
 	sprintf_s( p.info, sizeof(p.info), "from server" );
 
 	XAsioPackageHeader header;
-	header.m_dwPackageSize = sizeof(p);
+	header.m_dwSize = sizeof(p);
 
 	XAsioBuffer buff;
 	buff.copyFrom( &header, sizeof(header) );
