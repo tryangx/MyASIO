@@ -7,8 +7,9 @@
 #include <boost/asio.hpp>
 
 //#include "TestXAsio.h"
-#include "../asiowrapper/include/XAsioServer.h"
-#include "../asiowrapper/include/XAsioClient.h"
+#include "../asiowrapper/include/asio/XAsioServer.h"
+#include "../asiowrapper/include/asio/XAsioClient.h"
+#include "../asiowrapper/include/util/XLog.h"
 #include "afxwin.h"
 
 using namespace XASIO;
@@ -30,6 +31,8 @@ public:
 
 	boost::thread	m_createClientThread;
 	boost::thread	m_closeClientThread;
+
+	XLogUtil	m_log;
 
 	int		m_idCounter;
 	typedef boost::shared_ptr<class XClient>	CLIENT_PTR;

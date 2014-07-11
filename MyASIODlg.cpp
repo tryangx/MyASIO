@@ -112,6 +112,9 @@ BOOL CMyASIODlg::OnInitDialog()
 	// TODO: 在此添加额外的初始化代码
 	m_iPort = 8888;//9999;
 	m_idCounter = 0;
+
+	m_log.writeLog( "startup" );	
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -189,7 +192,7 @@ void CMyASIODlg::onServerLog( std::string str )
 }
 void CMyASIODlg::onClientLog( std::string str )
 {	
-	mutex::scoped_lock lock( m_clientMutex );
+	//mutex::scoped_lock lock( m_clientMutex );
 	std::string err = "Client:";
 	err += str;
 	err += "\r\n";
@@ -199,6 +202,7 @@ void CMyASIODlg::onClientLog( std::string str )
 }
 void CMyASIODlg::addHistroy( CString& s, CEdit& edit, LPCSTR pStr )
 {
+	return;
 	s += pStr;
 	edit.SetWindowText( s );
 	edit.SendMessage( WM_VSCROLL, SB_BOTTOM, 0 );
@@ -304,7 +308,7 @@ void CMyASIODlg::closeClient()
 						CLIENT_PTR& ptr = it->second;
 						ptr->disconnect();
 						m_service.removeService( ptr->getService().get() );
-						m_mapClient.erase( it );
+						//m_mapClient.erase( it );
 						break;
 					}
 				}
@@ -350,5 +354,5 @@ void CMyASIODlg::doClose()
 	{
 		this_thread::sleep( posix_time::milliseconds( 1000 ) );
 	}*/
-
+	m_log.writeLog( "doclose" );
 }

@@ -22,6 +22,9 @@
     <Filter Include="asio\src">
       <UniqueIdentifier>{d575f292-70ac-46e2-a22f-d1573e414ecb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{cc46b016-564e-43e3-bb5a-f0bd20318d76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -51,47 +54,50 @@
     <ClInclude Include="TestXAsio.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioBase.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioBase.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioClient.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioClient.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioHelper.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioHelper.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioInterface.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioInterface.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioPackage.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPackage.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioPacker.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPacker.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioPool.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPool.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioServer.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioServer.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioService.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioService.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioSocket.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioSocket.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioTCP.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioTCP.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioTCPSocket.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioTCPSocket.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioTimer.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioTimer.h">
       <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\XAsioUDP.h">
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioUDP.h">
       <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\util\XLog.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -104,35 +110,38 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\XAsioClient.cpp">
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioClient.cpp">
       <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\XAsioHelper.cpp">
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioHelper.cpp">
       <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\XAsioInterface.cpp">
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioInterface.cpp">
       <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\XAsioPacker.cpp">
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioPacker.cpp">
       <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\XAsioServer.cpp">
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioServer.cpp">
       <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\XAsioService.cpp">
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioService.cpp">
       <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\XAsioSocket.cpp">
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioSocket.cpp">
       <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\XAsioTCP.cpp">
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioTCP.cpp">
       <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\XAsioTCPSocket.cpp">
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPSocket.cpp">
       <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\XAsioUDP.cpp">
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioUDP.cpp">
       <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\util\XLog.cpp">
+      <Filter>util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
