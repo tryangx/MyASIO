@@ -110,6 +110,7 @@
     <ClInclude Include="..\asiowrapper\include\asio\XAsioPool.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioServer.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioService.h" />
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioSession.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioSocket.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioTCP.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioTCPSocket.h" />
@@ -130,6 +131,7 @@
     <ClCompile Include="..\asiowrapper\src\asio\XAsioPacker.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioServer.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioService.cpp" />
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioSession.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioSocket.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCP.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPSocket.cpp" />
