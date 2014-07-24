@@ -22,29 +22,8 @@
     <Filter Include="asio\src">
       <UniqueIdentifier>{d575f292-70ac-46e2-a22f-d1573e414ecb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asio\include\base">
-      <UniqueIdentifier>{d3ae15e3-d7a6-4587-b9ac-43d0d0d49463}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\include\extend">
-      <UniqueIdentifier>{121e6e0b-61da-4bac-a07f-01773e392621}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\include\util">
-      <UniqueIdentifier>{6e16ea52-fa9f-4d5f-9e44-74582c38b438}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\src\unfinished">
-      <UniqueIdentifier>{aee5735d-1845-4e3c-95c3-0f22cc1382bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\src\extend">
-      <UniqueIdentifier>{4f3a8b3e-d01e-4287-b533-355e11986653}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\src\util">
+    <Filter Include="util">
       <UniqueIdentifier>{cc46b016-564e-43e3-bb5a-f0bd20318d76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\src\base">
-      <UniqueIdentifier>{684bc56e-1007-4fe7-a25f-e30462680429}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\include\db">
-      <UniqueIdentifier>{e48858dd-f642-4519-b68a-e63a54084006}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,53 +54,50 @@
     <ClInclude Include="TestXAsio.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\util\XLog.h">
-      <Filter>asio\src\util</Filter>
-    </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioBase.h">
-      <Filter>asio\include\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioInterface.h">
-      <Filter>asio\include\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioService.h">
-      <Filter>asio\include\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioHelper.h">
-      <Filter>asio\include\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioPackage.h">
-      <Filter>asio\include\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioPacker.h">
-      <Filter>asio\include\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioPool.h">
-      <Filter>asio\include\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioTimer.h">
-      <Filter>asio\include\util</Filter>
+      <Filter>asio\include</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioClient.h">
-      <Filter>asio\include\extend</Filter>
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioHelper.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioInterface.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPackage.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPacker.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPool.h">
+      <Filter>asio\include</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioServer.h">
-      <Filter>asio\include\extend</Filter>
+      <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioTCP.h">
-      <Filter>asio\include\extend</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioTCPSocket.h">
-      <Filter>asio\include\extend</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioUDP.h">
-      <Filter>asio\include\extend</Filter>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioService.h">
+      <Filter>asio\include</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioSocket.h">
-      <Filter>asio\include\extend</Filter>
+      <Filter>asio\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioSession.h">
-      <Filter>asio\include\base</Filter>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioTCP.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioTCPSocket.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioTimer.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioUDP.h">
+      <Filter>asio\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\util\XLog.h">
+      <Filter>util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,41 +110,38 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\util\XLog.cpp">
-      <Filter>asio\src\util</Filter>
-    </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioPacker.cpp">
-      <Filter>asio\src\unfinished</Filter>
-    </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioSocket.cpp">
-      <Filter>asio\src\unfinished</Filter>
-    </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioInterface.cpp">
-      <Filter>asio\src\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioService.cpp">
-      <Filter>asio\src\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioSession.cpp">
-      <Filter>asio\src\base</Filter>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioClient.cpp">
+      <Filter>asio\src</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioHelper.cpp">
-      <Filter>asio\src\util</Filter>
+      <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioClient.cpp">
-      <Filter>asio\src\extend</Filter>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioInterface.cpp">
+      <Filter>asio\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioUDP.cpp">
-      <Filter>asio\src\extend</Filter>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioPacker.cpp">
+      <Filter>asio\src</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioServer.cpp">
-      <Filter>asio\src\extend</Filter>
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioService.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioSocket.cpp">
+      <Filter>asio\src</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCP.cpp">
-      <Filter>asio\src\extend</Filter>
+      <Filter>asio\src</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPSocket.cpp">
-      <Filter>asio\src\unfinished</Filter>
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioUDP.cpp">
+      <Filter>asio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\util\XLog.cpp">
+      <Filter>util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
