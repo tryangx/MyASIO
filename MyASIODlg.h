@@ -19,10 +19,10 @@ class CMyASIODlg : public CDialogEx
 {
 // ππ‘Ï
 	int							m_iPort;
-
+	bool						m_bExit;
 public:
-	//boost::asio::io_service				m_ioService;
-	XAsioService						m_service;
+	XAsioService						m_serverService;
+	XAsioService						m_clientService;
 	boost::shared_ptr<class XServer>	m_ptrServer;
 	int		m_iMaxClient;
 
