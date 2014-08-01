@@ -1,44 +1,14 @@
-﻿生成启动时间为 2014/7/24 星期四 17:52:09。
-     1>项目“F:\incoming\asio_wrapper_vs2010\MyASIO\MyASIO.vcxproj”在节点 2 上(build 个目标)。
-     1>InitializeBuildStatus:
-         正在创建“Debug\MyASIO.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
-       ClCompile:
-         所有输出均为最新。
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"f:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt MyASIO.cpp
-         MyASIO.cpp
-       ResourceCompile:
-         所有输出均为最新。
-       ManifestResourceCompile:
-         所有输出均为最新。
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\incoming\asio_wrapper_vs2010\Debug\MyASIO.exe" /INCREMENTAL /NOLOGO /LIBPATH:"f:\Program Files (x86)\Visual Leak Detector\lib\Win32" /MANIFEST /ManifestFile:"Debug\MyASIO.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\incoming\asio_wrapper_vs2010\Debug\MyASIO.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\incoming\asio_wrapper_vs2010\Debug\MyASIO.lib" /MACHINE:X86 Debug\MyASIO.res
-         Debug\MyASIO.exe.embed.manifest.res
-         Debug\XAsioClient.obj
-         Debug\XAsioHelper.obj
-         Debug\XAsioInterface.obj
-         Debug\XAsioPacker.obj
-         Debug\XAsioServer.obj
-         Debug\XAsioService.obj
-         Debug\XAsioSession.obj
-         Debug\XAsioSocket.obj
-         Debug\XAsioTCP.obj
-         Debug\XAsioTCPSocket.obj
-         Debug\XAsioUDP.obj
-         Debug\XLog.obj
-         Debug\MyASIO.obj
-         Debug\MyASIODlg.obj
-         Debug\stdafx.obj
-       Manifest:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\MyASIO.exe.embed.manifest" /manifest Debug\MyASIO.exe.intermediate.manifest "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\Include\Manifest\dpiaware.manifest"
-         所有输出均为最新。
-       LinkEmbedManifest:
-         所有输出均为最新。
-         MyASIO.vcxproj -> F:\incoming\asio_wrapper_vs2010\Debug\MyASIO.exe
-       FinalizeBuildStatus:
-         正在删除文件“Debug\MyASIO.unsuccessfulbuild”。
-         正在对“Debug\MyASIO.lastbuildstate”执行 Touch 任务。
-     1>已完成生成项目“F:\incoming\asio_wrapper_vs2010\MyASIO\MyASIO.vcxproj”(build 个目标)的操作。
+﻿生成启动时间为 2014/8/1 星期五 17:49:59。
+     1>项目“F:\incoming\asio_wrapper_vs2010\MyASIO\MyASIO.vcxproj”在节点 2 上(ClCompile 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"f:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\asiowrapper\src\asio\XAsioServer.cpp
+         XAsioServer.cpp
+         Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+         - add -D_WIN32_WINNT=0x0501 to the compiler command line; or
+         - add _WIN32_WINNT=0x0501 to your project's Preprocessor Definitions.
+         Assuming _WIN32_WINNT=0x0501 (i.e. Windows XP target).
+     1>已完成生成项目“F:\incoming\asio_wrapper_vs2010\MyASIO\MyASIO.vcxproj”(ClCompile 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:17.45
+已用时间 00:00:08.66

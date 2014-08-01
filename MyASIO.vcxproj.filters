@@ -46,6 +46,9 @@
     <Filter Include="asio\include\db">
       <UniqueIdentifier>{e48858dd-f642-4519-b68a-e63a54084006}</UniqueIdentifier>
     </Filter>
+    <Filter Include="asio\include\unfinished">
+      <UniqueIdentifier>{e8a1ec59-7ab8-45a0-bf6d-be4544bcfed5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -111,17 +114,17 @@
     <ClInclude Include="..\asiowrapper\include\asio\XAsioTCP.h">
       <Filter>asio\include\extend</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioTCPSocket.h">
-      <Filter>asio\include\extend</Filter>
-    </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioUDP.h">
-      <Filter>asio\include\extend</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioSocket.h">
       <Filter>asio\include\extend</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioSession.h">
       <Filter>asio\include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioSocket.h">
+      <Filter>asio\include\unfinished</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioTCPSocket.h">
+      <Filter>asio\include\unfinished</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

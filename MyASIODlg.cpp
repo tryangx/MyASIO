@@ -75,6 +75,7 @@ BEGIN_MESSAGE_MAP(CMyASIODlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_SENDCLIENT, &CMyASIODlg::OnBnClickedButtonSendclient)
 	ON_BN_CLICKED(IDC_BUTTON_STOPCLIENT, &CMyASIODlg::OnBnClickedButtonStopclient)
 	ON_BN_CLICKED(IDC_BUTTON_STOPSERVER, &CMyASIODlg::OnBnClickedButtonStopserver)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 
@@ -113,11 +114,17 @@ BOOL CMyASIODlg::OnInitDialog()
 	m_iPort = 8888;//9999;
 	m_idCounter = 0;
 
-	m_iMaxClient = 2500;
+	GetDlgItem( IDC_EDIT_CREATE_TIMES )->SetWindowText( CString( "100" ) );
+
+	m_iMaxClient = 1000;//2500;
 
 	m_bExit = false;
 	m_log.setLogFileName( "asio_debug", false );
 	m_log.writeLog( "startup" );
+
+	SetTimer( 1000, 1000, NULL );
+
+	XClient::setLog( std::bind( &CMyASIODlg::onClientLog, this, std::placeholders::_1 ) );
 
 	outputString( "hello %d", 128 );
 
@@ -181,8 +188,8 @@ void CMyASIODlg::OnBnClickedButtonStartserver()
 	}
 	m_ptrServer->setLogHandler( &CMyASIODlg::onServerLog, this );
 	m_ptrServer->setAddress( m_iPort );
-	m_ptrServer->setAcceptThreadNum( 6 );
-	m_ptrServer->startServer();		
+	m_ptrServer->setAcceptThreadNum( 1 );
+	m_ptrServer->startServer();
 
 	m_serverService.startService( m_ptrServer->getService().get() );
 }
@@ -193,10 +200,8 @@ void CMyASIODlg::onServerLog( std::string str )
 	std::string err = "Server:";
 	err += str;
 	err += "\r\n";
-	TRACE( err.c_str() );
-	//OutputDebugString( (LPCWSTR)err.c_str() );
-	addHistroy( m_sServerHistroy, m_serverHistroy, err.c_str() );
-	lock.unlock();
+	//TRACE( err.c_str() );
+	//addHistroy( m_sServerHistroy, m_serverHistroy, err.c_str() );
 }
 void CMyASIODlg::onClientLog( std::string str )
 {	
@@ -205,8 +210,7 @@ void CMyASIODlg::onClientLog( std::string str )
 	err += str;
 	err += "\r\n";
 	TRACE( err.c_str() );
-	//OutputDebugString( (LPCWSTR)err.c_str() );
-	addHistroy( m_sClientHistroy, m_clientHistroy, err.c_str() );
+	//addHistroy( m_sClientHistroy, m_clientHistroy, err.c_str() );
 }
 void CMyASIODlg::addHistroy( CString& s, CEdit& edit, LPCSTR pStr )
 {
@@ -243,8 +247,9 @@ void CMyASIODlg::OnBnClickedButtonSendserver()
 	if ( !m_ptrServer )
 	{
 		return;
-	}
+	}	
 	m_ptrServer->testSend();
+	TRACE( "start server send\n" );
 	return;
 	XAsioPackage p;
 	p.i = 10;
@@ -254,10 +259,10 @@ void CMyASIODlg::OnBnClickedButtonSendserver()
 	header.m_dwSize = sizeof(p);
 
 	XAsioBuffer buff;
-	buff.copyFrom( &header, sizeof(header) );
+	buff.copy( &header, sizeof(header) );
 
 	m_ptrServer->sendToAll( buff );
-	buff.copyFrom( &p, sizeof(p) );
+	buff.copy( &p, sizeof(p) );
 	m_ptrServer->sendToAll( buff );
 }
 
@@ -268,6 +273,20 @@ void CMyASIODlg::OnBnClickedButtonSendclient()
 	{
 		CLIENT_PTR ptr = it->second;
 		ptr->testSend();
+		continue;
+		XAsioPackage p;
+		p.i = 10;
+		sprintf_s( p.info, sizeof(p.info), "from client" );
+
+		XAsioPackageHeader header;
+		header.m_dwSize = sizeof(p);
+
+		XAsioBuffer buff;
+		buff.copy( &header, sizeof(header) );
+		ptr->send( buff );
+
+		buff.copy( &p, sizeof(p) );
+		ptr->send( buff );
 	}
 }
 
@@ -284,25 +303,42 @@ void CMyASIODlg::createClient()
 {
 	try
 	{
-		int concurrentCnt = 500;
-		//while( 1 )
+		while( 1 )
 		{
+			boost::this_thread::interruption_point();
+
+			mutex::scoped_lock lock( m_listMutex );
+
+			CString s;
+			GetDlgItem( IDC_EDIT_CREATE_TIMES )->GetWindowText( s );
+			int concurrentCnt = boost::lexical_cast<int>( s.GetBuffer(0) );//10 + rand() % 40;
+
+			bool bAddClient = false;
+			int begTick = GetTickCount();
 			for ( int i = 0; i < concurrentCnt; i++ )
 			{
 				boost::this_thread::interruption_point();
 				if ( (int)m_mapClient.size() < m_iMaxClient )
 				{
+					bAddClient = true;
 					m_idCounter++;
-					CLIENT_PTR client = CLIENT_PTR( new XClient( m_clientService ) );	
-					client->setLog( std::bind( &CMyASIODlg::onClientLog, this, std::placeholders::_1 ) );
+					CLIENT_PTR client = CLIENT_PTR( new XClient( m_clientService ) );						
 					client->setId( m_idCounter );
 					client->setAddress( "localhost", m_iPort );
 					client->connect();
-					m_clientService.startService( client->getService().get() );
+					//client->testSend();
+					m_clientService.startService( client->getService().get(), 1 );
 					m_mapClient.insert( std::make_pair( client->getId(), client ) );
 				}
 			}
-			int millseconds = rand() % 2000 + 2000;
+			if ( bAddClient )
+			{
+				int endTick = GetTickCount();
+				TRACE( outputString( "connect finished %d\n", endTick - begTick ) );
+			}
+			lock.unlock();
+
+			int millseconds = rand() % 2000 + 1000;
 			this_thread::sleep( get_system_time() + posix_time::milliseconds( millseconds ) );
 		}
 	}
@@ -315,27 +351,58 @@ void CMyASIODlg::closeClient()
 {
 	try
 	{
+		//m_ptrServer->closeSession( 1 );
 		while( 1 )
 		{
 			boost::this_thread::interruption_point();
-			if ( m_mapClient.size() != 0 )
+			
+			mutex::scoped_lock lock( m_listMutex );
+			if ( m_mapTempClient.size() != 0 )
 			{
-				int inx = 0;
-				int targetIndex = rand() % m_mapClient.size();
-				auto it = std::begin( m_mapClient );
-				for ( ; it != std::end( m_mapClient ); it++, inx++ )
+				auto it = std::begin( m_mapTempClient );
+				for ( ; it != std::end( m_mapTempClient ); )
 				{
-					if ( inx == targetIndex )
+					CLIENT_PTR& ptr = it->second;
+					if ( !ptr->isConnected() )
 					{
-						CLIENT_PTR& ptr = it->second;
-						ptr->disconnect();
-						m_clientService.removeService( ptr->getService().get() );
-						m_mapClient.erase( it );
-						break;
+						it = m_mapTempClient.erase( it );
+					}
+					else
+					{
+						it++;
 					}
 				}
 			}
-			int millseconds = rand() % 2000 + 5000;
+			if ( m_mapClient.size() != 0 )
+			{
+				int inx = 0;
+				int del = rand() % 5 + 1;
+				for ( int left = 0; left < del && !m_mapClient.empty(); left++ )
+				{
+					int targetIndex = rand() % m_mapClient.size();
+					//targetIndex = 0;
+					auto it = std::begin( m_mapClient );
+					for ( ; it != std::end( m_mapClient ); it++, inx++ )
+					{
+						if ( inx == targetIndex )
+						{
+							CLIENT_PTR& ptr = it->second;
+							if ( ptr->isConnected() )
+							{
+								TRACE( outputString( "tryclose %d\n", ptr->getId() ) );
+								ptr->disconnect();
+								m_clientService.removeService( ptr->getService().get() );
+								m_mapTempClient.insert( std::make_pair( ptr->getId(), ptr ) );
+								m_mapClient.erase( it );
+								break;
+							}						
+						}
+					}
+				}
+			}
+			lock.unlock();
+
+			int millseconds = rand() % 2000 + 2000;
 			this_thread::sleep( get_system_time() + posix_time::milliseconds( millseconds ) );
 		}
 	}
@@ -346,8 +413,11 @@ void CMyASIODlg::closeClient()
 
 void CMyASIODlg::OnBnClickedButtonStopserver()
 {
-	m_ptrServer->stopServer();
-	m_serverService.stopService( m_ptrServer->getService().get() );
+	if ( m_ptrServer )
+	{
+		m_ptrServer->stopServer();
+		m_serverService.stopService( m_ptrServer->getService().get() );
+	}	
 }
 
 void CMyASIODlg::doClose()
@@ -358,6 +428,10 @@ void CMyASIODlg::doClose()
 	m_createClientThread.interrupt();
 	m_closeClientThread.interrupt();
 
+	TRACE( "!!!!!!thread exit\n" );
+
+	mutex::scoped_lock lock( m_listMutex );
+
 	auto it = std::begin( m_mapClient );
 	for ( ; it != std::end( m_mapClient ); it++ )
 	{
@@ -365,13 +439,17 @@ void CMyASIODlg::doClose()
 		ptr->disconnect();
 		m_clientService.removeService( ptr->getService().get() );
 	}
+	m_clientService.forceStopAllServices();
 	m_mapClient.clear();
+
+	TRACE( "!!!!!!thread client\n" );
 
 	if ( m_ptrServer )
 	{
 		m_ptrServer->stopServer();
-		m_serverService.stopService( m_ptrServer->getService().get() );
+		m_serverService.stopAllServices();
 	}
+	TRACE( "!!!!!!thread server\n" );
 
 	while( m_clientService.isStarted() && m_clientService.isRunning()
 		|| ( m_serverService.isStarted() && m_serverService.isRunning() ) )
@@ -379,4 +457,43 @@ void CMyASIODlg::doClose()
 		this_thread::sleep( posix_time::milliseconds( 1000 ) );
 	}
 	m_log.writeLog( "doclose" );
+}
+
+void CMyASIODlg::OnTimer(UINT_PTR nIDEvent)
+{
+	if ( nIDEvent == 1000 )
+	{
+		mutex::scoped_lock lock( m_listMutex );
+
+		size_t kb = 1024 * 10;
+		size_t in, out;
+		CString s;
+		in = XServerSession::getRecvSize();
+		out = XServerSession::getSendSize();
+		int cnt = m_ptrServer ? m_ptrServer->getClientCount() : 0;
+		if ( in > kb || out > kb )
+		{
+			s = outputString( "Cnt:%d  In:%dK  Out:%dK", cnt, in / 1024, out / 1024 );
+		}
+		else
+		{
+			s = outputString( "Cnt:%d  In:%d  Out:%d", cnt, in, out );
+		}		
+		GetDlgItem( IDC_STATIC_SERVER )->SetWindowText( s );
+		
+		in = XClient::getRecvSize();
+		out = XClient::getSendSize();
+		cnt = m_mapClient.size();
+		int tmp = m_mapTempClient.size();
+		if ( in > kb || out > kb )
+		{
+			s = outputString( "Cnt:%d  Tmp:%d, In:%dK  Out:%dK", cnt, tmp, in / 1024, out / 1024 );
+		}
+		else
+		{
+			s = outputString( "Cnt:%d  Tmp:%d  In:%d  Out:%d", cnt, tmp, in, out );
+		}
+		GetDlgItem( IDC_STATIC_CLIENT )->SetWindowText( s );
+	}
+	CDialogEx::OnTimer(nIDEvent);
 }

@@ -28,6 +28,7 @@ public:
 
 	mutex	m_clientMutex;
 	mutex	m_serverMutex;
+	mutex	m_listMutex;
 
 	boost::thread	m_createClientThread;
 	boost::thread	m_closeClientThread;
@@ -37,6 +38,7 @@ public:
 	int		m_idCounter;
 	typedef boost::shared_ptr<class XClient>	CLIENT_PTR;
 	std::tr1::unordered_map<UINT, CLIENT_PTR>	m_mapClient;
+	std::tr1::unordered_map<UINT, CLIENT_PTR>	m_mapTempClient;
 
 //	CClient m_client;
 //	CServer m_server;
@@ -84,4 +86,5 @@ public:
 	afx_msg void OnBnClickedButtonSendclient();
 	afx_msg void OnBnClickedButtonStopclient();
 	afx_msg void OnBnClickedButtonStopserver();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
