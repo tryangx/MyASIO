@@ -48,6 +48,12 @@ public:
 	
 	void		createClient();
 	void		closeClient();
+
+	void		doUpdateInfo();
+	void		doCreateClient();
+	void		doCloseClient();
+	void		doServerSend();
+	void		doClientSend();
 public:
 	void		onRunClientService();
 	void		onServerLog( std::string str );
