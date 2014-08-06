@@ -6,6 +6,8 @@
 #include "MyASIO.h"
 #include "MyASIODlg.h"
 
+#include <vld.h>
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif

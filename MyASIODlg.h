@@ -26,12 +26,17 @@ public:
 	boost::shared_ptr<class XServer>	m_ptrServer;
 	int		m_iMaxClient;
 
+	bool	m_bShowLog;
+
 	mutex	m_clientMutex;
 	mutex	m_serverMutex;
 	mutex	m_listMutex;
 
 	boost::thread	m_createClientThread;
 	boost::thread	m_closeClientThread;
+
+	int			m_serverSendTime;
+	int			m_clientSendTime;
 
 	XLogUtil	m_log;
 
@@ -93,4 +98,6 @@ public:
 	afx_msg void OnBnClickedButtonStopclient();
 	afx_msg void OnBnClickedButtonStopserver();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnBnClickedButtonTestecho();
+	afx_msg void OnBnClickedCheckLog();
 };
