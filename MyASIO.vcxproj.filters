@@ -126,6 +126,9 @@
     <ClInclude Include="..\asiowrapper\include\asio\XAsioTCPSocket.h">
       <Filter>asio\include\unfinished</Filter>
     </ClInclude>
+    <ClInclude Include="MysqlDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyASIO.cpp">
@@ -172,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPSocket.cpp">
       <Filter>asio\src\unfinished</Filter>
+    </ClCompile>
+    <ClCompile Include="MysqlDialog.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

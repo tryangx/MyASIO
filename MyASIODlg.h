@@ -31,12 +31,16 @@ public:
 	mutex	m_clientMutex;
 	mutex	m_serverMutex;
 	mutex	m_listMutex;
-
+	
 	boost::thread	m_createClientThread;
 	boost::thread	m_closeClientThread;
 
+	int			m_iStartServerTick;
+	int			m_iCloseClientCnt;
 	int			m_serverSendTime;
 	int			m_clientSendTime;
+
+	bool		m_bTestEcho;
 
 	XLogUtil	m_log;
 
@@ -61,8 +65,8 @@ public:
 	void		doClientSend();
 public:
 	void		onRunClientService();
-	void		onServerLog( std::string str );
-	void		onClientLog( std::string str );
+	void		onServerLog( const char* pStr );
+	void		onClientLog( const char* pStr );
 
 public:
 	CMyASIODlg(CWnd* pParent = NULL);	// 标准构造函数
