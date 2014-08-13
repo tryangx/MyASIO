@@ -15,6 +15,8 @@ class CMysqlDialog : public CDialogEx
 
 	void			addHistroy( LPCSTR pStr );
 
+	void			onLog( const char* pLog );
+
 public:
 	CMysqlDialog(CWnd* pParent = NULL);   // 标准构造函数
 	virtual ~CMysqlDialog();

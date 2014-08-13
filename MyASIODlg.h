@@ -44,7 +44,7 @@ public:
 
 	XLogUtil	m_log;
 
-	int		m_idCounter;
+	int			m_idCounter;
 	typedef boost::shared_ptr<class XClient>	CLIENT_PTR;
 	std::tr1::unordered_map<UINT, CLIENT_PTR>	m_mapClient;
 	std::tr1::unordered_map<UINT, CLIENT_PTR>	m_mapTempClient;

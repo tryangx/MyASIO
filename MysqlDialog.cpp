@@ -44,6 +44,8 @@ BOOL CMysqlDialog::OnInitDialog()
 	GetDlgItem( IDC_EDIT_PASSWORD )->SetWindowText( CString( "test" ) );
 	GetDlgItem( IDC_EDIT_SYNTAX )->SetWindowText( CString( "select * from account" ) );
 
+	m_mysql.setLogHandler( &CMysqlDialog::onLog, this);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -52,6 +54,7 @@ void CMysqlDialog::OnBnClickedButtonExecute()
 {
 	CString query;
 	GetDlgItem( IDC_EDIT_SYNTAX )->GetWindowText( query );
+
 	sql::ResultSet* pSet = m_mysql.query( (LPSTR)(LPCTSTR)query.GetBuffer(0) );
 	if ( pSet )
 	{
@@ -83,6 +86,7 @@ void CMysqlDialog::OnBnClickedButtonConnect()
 	CString user, pw;
 	GetDlgItem( IDC_EDIT_USER )->GetWindowText( user );
 	GetDlgItem( IDC_EDIT_PASSWORD )->GetWindowText( pw );
+	m_mysql.selectSchema( "test" );
 	bool ret = m_mysql.connect( "tcp://127.0.0.1:3306", UnicodeToAnsi(user.GetBuffer(0)), UnicodeToAnsi(pw.GetBuffer(0)));
 	if ( !ret )
 	{
@@ -107,8 +111,14 @@ void CMysqlDialog::addHistroy( LPCSTR pStr )
 	{
 		m_sHistroy.Empty();
 	}
+	TRACE( pStr );
 	m_sHistroy += pStr;
 	CEdit* p = (CEdit*)GetDlgItem( IDC_EDIT_HISTROY );
 	p->SetWindowText( m_sHistroy );
 	p->SendMessage( WM_VSCROLL, SB_BOTTOM, 0 );
+}
+
+void CMysqlDialog::onLog( const char* pLog )
+{
+	addHistroy( pLog );
 }

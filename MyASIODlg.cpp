@@ -123,15 +123,15 @@ BOOL CMyASIODlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
-	m_iPort = 8888;//9999;
-	m_idCounter = 0;
+	m_iPort = 8888;//9999;	
 
 	GetDlgItem( IDC_EDIT_CREATE_TIMES )->SetWindowText( CString( "100" ) );
 
-	m_bShowLog = false;
-	
+	m_bShowLog = false;	
 	m_bTestEcho = false;
+	m_bExit = false;
 
+	m_idCounter = 0;
 	m_serverSendTime = 0;
 	m_clientSendTime = 0;
 	m_iCloseClientCnt = 0;
@@ -143,7 +143,6 @@ BOOL CMyASIODlg::OnInitDialog()
 	s.Format( _T("%d"), m_iMaxClient );
 	GetDlgItem( IDC_EDIT_LINK_COUNT )->SetWindowText( s );
 
-	m_bExit = false;
 	m_log.setLogFileName( "asio_debug", false );
 	m_log.writeLog( "startup" );
 
@@ -267,8 +266,10 @@ void CMyASIODlg::addHistroy( CString& s, CEdit& edit, LPCSTR pStr )
 		s.Empty();
 	}
 	s += pStr;
+/*
 	edit.SetWindowText( s );
 	edit.SendMessage( WM_VSCROLL, SB_BOTTOM, 0 );
+*/
 }
 
 void CMyASIODlg::OnBnClickedOk()
@@ -471,6 +472,11 @@ void CMyASIODlg::doUpdateInfo()
 	s = outputString( "Connect:%d\nTemp:%d\nClose:%d\nRecv:%dK\nSend:%dK(%.1f KB/s)", 
 		cnt, tmp, m_iCloseClientCnt, in / 1024, out / 1024, (double)out / ( 1024 * time ) );	
 	GetDlgItem( IDC_STATIC_CLIENT )->SetWindowText( s );
+
+	m_clientHistroy.SetWindowText( m_sClientHistroy );
+	m_clientHistroy.SendMessage( WM_VSCROLL, SB_BOTTOM, 0 );
+	m_serverHistroy.SetWindowText( m_sServerHistroy );
+	m_serverHistroy.SendMessage( WM_VSCROLL, SB_BOTTOM, 0 );
 }
 void CMyASIODlg::doCreateClient()
 {
