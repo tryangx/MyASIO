@@ -127,6 +127,27 @@ BOOL CMyASIODlg::OnInitDialog()
 
 	GetDlgItem( IDC_EDIT_CREATE_TIMES )->SetWindowText( CString( "100" ) );
 
+/*
+	char text1[16] = "first";
+	char text2[16] = "first1";
+	std::string str = "second";
+	
+	XAsioBuffer buffer( 4 );
+	buffer.writeData( text1, 16 );
+	buffer << text2;
+	buffer << str;
+	buffer << 12345;
+	buffer << std::string( "third" );
+
+	memset( text1, 1, sizeof(text1) );
+	int v;
+	std::string s1, s2;
+	buffer.readData( text1, 16 );
+	buffer >> text2;
+	buffer >> s1;
+	buffer >> v;
+	buffer >> s2;*/
+
 	m_bShowLog = false;	
 	m_bTestEcho = false;
 	m_bExit = false;
@@ -138,7 +159,7 @@ BOOL CMyASIODlg::OnInitDialog()
 
 	m_iStartServerTick = GetTickCount();
 
-	m_iMaxClient = 100;//1000;
+	m_iMaxClient = 1;//1000;
 	CString s;
 	s.Format( _T("%d"), m_iMaxClient );
 	GetDlgItem( IDC_EDIT_LINK_COUNT )->SetWindowText( s );
@@ -288,6 +309,11 @@ void CMyASIODlg::OnBnClickedCancel()
 
 void CMyASIODlg::OnBnClickedButtonSendserver()
 {
+/*
+	XAsioSendPackage package( 1000 );
+	package << std::string( "test" );
+	//m_ptrServer->sendToAll( package );
+	return;*/
 	SetTimer( SERVER_SEND_TIMER, TIME_INTERVAL, NULL );
 	return;
 	if ( !m_ptrServer )
@@ -345,53 +371,10 @@ void CMyASIODlg::OnBnClickedButtonStartclient()
 	m_iMaxClient = boost::lexical_cast<int>( s.GetBuffer(0) );
 
 	SetTimer( CREATE_CLIENT_TIMER, TIME_INTERVAL, NULL );
-	return;
-	m_createClientThread = boost::thread( boost::bind( &CMyASIODlg::createClient, this ) );
 }
 void CMyASIODlg::OnBnClickedButtonStopclient()
 {
 	SetTimer( CLOSE_CLIENT_TIMER, TIME_INTERVAL, NULL );
-	return;
-	m_closeClientThread = boost::thread( boost::bind( &CMyASIODlg::closeClient, this ) );
-}
-
-void CMyASIODlg::createClient()
-{
-	try
-	{
-		while( 1 )
-		{
-			boost::this_thread::interruption_point();
-
-			doCreateClient();
-
-			int millseconds = rand() % 2000 + 1000;
-			this_thread::sleep( get_system_time() + posix_time::milliseconds( millseconds ) );
-		}
-	}
-	catch(boost::thread_interrupted &)
-	{
-	}
-}
-
-void CMyASIODlg::closeClient()
-{
-	try
-	{
-		//m_ptrServer->closeSession( 1 );
-		while( 1 )
-		{
-			boost::this_thread::interruption_point();
-			
-			doCloseClient();
-
-			int millseconds = rand() % 2000 + 2000;
-			this_thread::sleep( get_system_time() + posix_time::milliseconds( millseconds ) );
-		}
-	}
-	catch(boost::thread_interrupted &)
-	{
-	}
 }
 
 void CMyASIODlg::OnBnClickedButtonStopserver()
@@ -399,7 +382,8 @@ void CMyASIODlg::OnBnClickedButtonStopserver()
 	if ( m_ptrServer )
 	{
 		m_ptrServer->stopServer();
-		m_serverService.stopService( m_ptrServer->getService().get() );
+		//m_serverService.stopService( m_ptrServer->getService().get() );
+		m_serverService.stopAllServices();
 	}	
 }
 
@@ -414,9 +398,6 @@ void CMyASIODlg::doClose()
 	KillTimer( SERVER_SEND_TIMER );
 	KillTimer( CLIENT_SEND_TIMER );
 
-	m_createClientThread.interrupt();
-	m_closeClientThread.interrupt();
-
 	TRACE( "!!!!!!thread exit\n" );
 
 	mutex::scoped_lock lock( m_listMutex );
@@ -428,7 +409,8 @@ void CMyASIODlg::doClose()
 		ptr->disconnect();
 		m_clientService.removeService( ptr->getService().get() );
 	}
-	m_clientService.forceStopAllServices();
+	m_clientService.stopAllServices();
+	//m_clientService.forceStopAllServices();
 	m_mapClient.clear();
 
 	TRACE( "!!!!!!thread client\n" );
@@ -437,6 +419,7 @@ void CMyASIODlg::doClose()
 	{
 		m_ptrServer->stopServer();
 		m_serverService.stopAllServices();
+		//m_serverService.forceStopAllServices();
 	}
 	TRACE( "!!!!!!thread server\n" );
 
@@ -458,15 +441,15 @@ void CMyASIODlg::doUpdateInfo()
 
 	int time = ( GetTickCount() - m_iStartServerTick ) / 1000;
 
-	in = XServerSession::getRecvSize();
-	out = XServerSession::getSendSize();
+	in = XAsioStatServerAgent::getMutableInstance()->getTotalRecvSize();
+	out = XAsioStatServerAgent::getMutableInstance()->getTotalSendSize();
 	int cnt = m_ptrServer ? m_ptrServer->getClientCount() : 0;	
 	s = outputString( "Time:%d\nAccept:%d\nRecv:%dK\nSend:%dK(%.1f KB/s)", 
 			time, cnt, in / 1024, out / 1024, (double)out / ( 1024 * time ) );	
 	GetDlgItem( IDC_STATIC_SERVER )->SetWindowText( s );
 
-	in = XClient::getRecvSize();
-	out = XClient::getSendSize();
+	in = XAsioStatClientAgent::getMutableInstance()->getTotalRecvSize();
+	out = XAsioStatClientAgent::getMutableInstance()->getTotalSendSize();
 	cnt = m_mapClient.size();
 	int tmp = m_mapTempClient.size();
 	s = outputString( "Connect:%d\nTemp:%d\nClose:%d\nRecv:%dK\nSend:%dK(%.1f KB/s)", 
@@ -505,6 +488,7 @@ void CMyASIODlg::doCreateClient()
 			{
 				client->testEcho();
 			}
+			TRACE( "try connect" );
 		}
 	}
 	if ( bAddClient )
@@ -614,7 +598,6 @@ void CMyASIODlg::OnTimer(UINT_PTR nIDEvent)
 	CDialogEx::OnTimer(nIDEvent);
 }
 
-
 void CMyASIODlg::OnBnClickedButtonTestecho()
 {
 	m_bTestEcho = true;
@@ -625,7 +608,6 @@ void CMyASIODlg::OnBnClickedButtonTestecho()
 		ptr->testEcho();
 	}
 }
-
 
 void CMyASIODlg::OnBnClickedCheckLog()
 {

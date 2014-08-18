@@ -5,8 +5,9 @@
 #include "MyASIO.h"
 #include "MysqlDialog.h"
 #include "../asiowrapper/include/asio/XAsioHelper.h"
+#include "../asiowrapper/include/util/XStringUtil.h"
 
-using namespace XASIO;
+using namespace XGAME;
 // CMysqlDialog ¶Ô»°¿ò
 
 IMPLEMENT_DYNAMIC(CMysqlDialog, CDialogEx)

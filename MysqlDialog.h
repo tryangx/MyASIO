@@ -2,7 +2,7 @@
 
 #include "../asiowrapper/include/db/XDBMysql.h"
 
-using namespace XMYSQL;
+using namespace XGAME;
 // CMysqlDialog ¶Ô»°¿ò
 
 class CMysqlDialog : public CDialogEx

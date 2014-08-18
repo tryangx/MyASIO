@@ -10,9 +10,10 @@
 #include "../asiowrapper/include/asio/XAsioServer.h"
 #include "../asiowrapper/include/asio/XAsioClient.h"
 #include "../asiowrapper/include/util/XLog.h"
+#include "../asiowrapper/include/util/XStringUtil.h"
 #include "afxwin.h"
 
-using namespace XASIO;
+using namespace XGAME;
 
 // CMyASIODlg ¶Ô»°¿ò
 class CMyASIODlg : public CDialogEx
@@ -32,9 +33,6 @@ public:
 	mutex	m_serverMutex;
 	mutex	m_listMutex;
 	
-	boost::thread	m_createClientThread;
-	boost::thread	m_closeClientThread;
-
 	int			m_iStartServerTick;
 	int			m_iCloseClientCnt;
 	int			m_serverSendTime;
@@ -55,9 +53,6 @@ public:
 	void		addHistroy( CString& s, CEdit& edit, LPCSTR pStr );
 	void		doClose();
 	
-	void		createClient();
-	void		closeClient();
-
 	void		doUpdateInfo();
 	void		doCreateClient();
 	void		doCloseClient();
