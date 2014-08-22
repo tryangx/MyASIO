@@ -56,31 +56,21 @@ void CMysqlDialog::OnBnClickedButtonExecute()
 	CString query;
 	GetDlgItem( IDC_EDIT_SYNTAX )->GetWindowText( query );
 
-	sql::ResultSet* pSet = m_mysql.query( (LPSTR)(LPCTSTR)query.GetBuffer(0) );
-	if ( pSet )
+	char output[4096];
+	unicodeToAnsi( query.GetBuffer(0),output,4096 );
+	RESULTSET_PTR ptrSet = m_mysql.query( output );
+	if ( ptrSet )
 	{
 		addHistroy( "query suc" );
 
-		while( pSet->next() )
+		while( ptrSet->next() )
 		{
-			int id = pSet->getInt( "id" );
-			std::string s = pSet->getString( "name" );
+			int id = ptrSet->getInt( "id" );
+			std::string s = ptrSet->getString( "name" );
 			addHistroy( outputString( "id:%d  name:%d", id, s.c_str() ) );
 		}
 	}
 }
-
-inline char* UnicodeToAnsi( const wchar_t* szStr )  
-{  
-	int nLen = WideCharToMultiByte( CP_ACP, 0, szStr, -1, NULL, 0, NULL, NULL );  
-	if (nLen == 0)  
-	{  
-		return NULL;  
-	}  
-	char* pResult = new char[nLen];  
-	WideCharToMultiByte( CP_ACP, 0, szStr, -1, pResult, nLen, NULL, NULL );  
-	return pResult;  
-}  
 
 void CMysqlDialog::OnBnClickedButtonConnect()
 {
@@ -88,7 +78,10 @@ void CMysqlDialog::OnBnClickedButtonConnect()
 	GetDlgItem( IDC_EDIT_USER )->GetWindowText( user );
 	GetDlgItem( IDC_EDIT_PASSWORD )->GetWindowText( pw );
 	m_mysql.selectSchema( "test" );
-	bool ret = m_mysql.connect( "tcp://127.0.0.1:3306", UnicodeToAnsi(user.GetBuffer(0)), UnicodeToAnsi(pw.GetBuffer(0)));
+	char output1[4096], output2[4096];
+	unicodeToAnsi(user.GetBuffer(0),output1,4096);
+	unicodeToAnsi(pw.GetBuffer(0),output2,4096);
+	bool ret = m_mysql.connect( "tcp://127.0.0.1:3306", output1, output2);
 	if ( !ret )
 	{
 		addHistroy( "connect failed" );

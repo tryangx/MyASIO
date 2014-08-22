@@ -9,8 +9,10 @@
 //#include "TestXAsio.h"
 #include "../asiowrapper/include/asio/XAsioServer.h"
 #include "../asiowrapper/include/asio/XAsioClient.h"
-#include "../asiowrapper/include/util/XLog.h"
+#include "../asiowrapper/include/asio/XAsioPacket.h"
 #include "../asiowrapper/include/util/XStringUtil.h"
+#include "../asiowrapper/include/util/XSerializtion.h"
+#include "../asiowrapper/include/util/XLog.h"
 #include "afxwin.h"
 
 using namespace XGAME;
@@ -35,9 +37,9 @@ public:
 	
 	int			m_iStartServerTick;
 	int			m_iCloseClientCnt;
-	int			m_serverSendTime;
-	int			m_clientSendTime;
 
+	thread		m_consumeThread;
+	
 	bool		m_bTestEcho;
 
 	XLogUtil	m_log;
@@ -58,6 +60,7 @@ public:
 	void		doCloseClient();
 	void		doServerSend();
 	void		doClientSend();
+	void		onConsumeThread();
 public:
 	void		onRunClientService();
 	void		onServerLog( const char* pStr );

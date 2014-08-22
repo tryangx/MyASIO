@@ -7,6 +7,9 @@
 #include "MyASIODlg.h"
 #include "afxdialogex.h"
 
+#include "../asiowrapper/include/util/XDataTable.h"
+#include "../asiowrapper/include/util/XStringUtil.h"
+
 #include <exception>
 
 #ifdef _DEBUG
@@ -23,6 +26,34 @@ enum
 	SERVER_SEND_TIMER	= 1003,
 	CLIENT_SEND_TIMER	= 1004,
 };
+
+class CardData
+{
+public:
+	static const char* getFileName() { return "card.csv"; }
+	int			getId() { return m_id; }
+	void		parse( std::vector<std::string>& v )
+	{
+		m_id = XGAMESTRING::parseInt( v[0] );
+		char output[4096];		
+		utf8ToAnsi( v[1].c_str(), output, 4096 );
+		m_name = output;
+		m_type = XGAMESTRING::parseInt( v[2] );
+		std::vector<std::string> arr;
+		XGAMESTRING::split( v[3].c_str(), arr, ":" );
+		m_reward1 = XGAMESTRING::parseInt( v[3] );
+		m_reward2 = XGAMESTRING::parseInt( v[4] );
+	}
+
+public:
+	int			m_id;
+	std::string	m_name;
+	int			m_type;
+	int			m_reward1;
+	int			m_reward2;
+	int			m_reward3;
+};
+
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
 class CAboutDlg : public CDialogEx
@@ -122,6 +153,9 @@ BOOL CMyASIODlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
+	XTableDataLoader<CardData>	cardLoader;
+	cardLoader.load();
+
 	// TODO: 在此添加额外的初始化代码
 	m_iPort = 8888;//9999;	
 
@@ -153,8 +187,6 @@ BOOL CMyASIODlg::OnInitDialog()
 	m_bExit = false;
 
 	m_idCounter = 0;
-	m_serverSendTime = 0;
-	m_clientSendTime = 0;
 	m_iCloseClientCnt = 0;
 
 	m_iStartServerTick = GetTickCount();
@@ -172,6 +204,20 @@ BOOL CMyASIODlg::OnInitDialog()
 	XClient::setLog( std::bind( &CMyASIODlg::onClientLog, this, std::placeholders::_1 ) );
 
 	outputString( "hello %d", 128 );
+	
+	XAsioPacket packet;
+	packet.s = "test";
+	packet.value = 12345;	
+	std::ostringstream oss;
+	boost::archive::binary_oarchive oa( oss );
+	oa << packet;
+	std::string str;
+	int v = 0;	
+	std::string content = oss.str();
+	std::istringstream iss( content );
+	XAsioPacket p1;
+	boost::archive::binary_iarchive ia( iss );
+	ia >> p1;
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -239,6 +285,28 @@ void CMyASIODlg::OnBnClickedButtonStartserver()
 	m_serverService.startService( m_ptrServer->getService().get() );
 
 	m_iStartServerTick = GetTickCount();
+
+	m_consumeThread = thread( boost::bind( &CMyASIODlg::onConsumeThread, this ) );
+}
+
+void CMyASIODlg::onConsumeThread()
+{
+	if ( m_ptrServer )
+	{
+		XAsioRecvPacket packet;
+		if ( m_ptrServer->queryRecvPacket( packet ) )
+		{
+			std::string s;
+			int v = 0;
+			char text[256];
+			packet >> s;
+			packet >> v;
+			packet >> text;
+			TRACE( "recv" );
+			TRACE( s.c_str() );
+			TRACE( text );
+		}
+	}
 }
 
 void CMyASIODlg::onServerLog( const char* str )
@@ -309,59 +377,12 @@ void CMyASIODlg::OnBnClickedCancel()
 
 void CMyASIODlg::OnBnClickedButtonSendserver()
 {
-/*
-	XAsioSendPackage package( 1000 );
-	package << std::string( "test" );
-	//m_ptrServer->sendToAll( package );
-	return;*/
 	SetTimer( SERVER_SEND_TIMER, TIME_INTERVAL, NULL );
-	return;
-	if ( !m_ptrServer )
-	{
-		return;
-	}	
-	m_ptrServer->testSend();
-	TRACE( "start server send\n" );
-	return;
-	XAsioPackage p;
-	p.i = 10;
-	sprintf_s( p.info, sizeof(p.info), "from server" );
-
-	XAsioPackageHeader header;
-	header.m_dwSize = sizeof(p);
-
-	XAsioBuffer buff;
-	buff.copy( &header, sizeof(header) );
-
-	m_ptrServer->sendToAll( buff );
-	buff.copy( &p, sizeof(p) );
-	m_ptrServer->sendToAll( buff );
 }
 
 void CMyASIODlg::OnBnClickedButtonSendclient()
 {
 	SetTimer( CLIENT_SEND_TIMER, TIME_INTERVAL, NULL );
-	return;
-	auto it = std::begin( m_mapClient );
-	for ( ; it != std::end( m_mapClient ); it++ )
-	{
-		CLIENT_PTR ptr = it->second;
-		ptr->testSend();
-		continue;
-		XAsioPackage p;
-		p.i = 10;
-		sprintf_s( p.info, sizeof(p.info), "from client" );
-
-		XAsioPackageHeader header;
-		header.m_dwSize = sizeof(p);
-
-		XAsioBuffer buff;
-		buff.copy( &header, sizeof(header) );
-		ptr->send( buff );
-
-		buff.copy( &p, sizeof(p) );
-		ptr->send( buff );
-	}
 }
 
 void CMyASIODlg::OnBnClickedButtonStartclient()
@@ -488,13 +509,12 @@ void CMyASIODlg::doCreateClient()
 			{
 				client->testEcho();
 			}
-			TRACE( "try connect" );
 		}
 	}
 	if ( bAddClient )
 	{
 		int endTick = GetTickCount();
-		TRACE( outputString( "connect finished %d\n", endTick - begTick ) );
+		//TRACE( outputString( "connect finished %d\n", endTick - begTick ) );
 	}
 	lock.unlock();
 }
@@ -534,7 +554,7 @@ void CMyASIODlg::doCloseClient()
 					if ( ptr->isConnected() )
 					{
 						m_iCloseClientCnt++;
-						TRACE( outputString( "tryclose %d\n", ptr->getId() ) );
+						//TRACE( outputString( "tryclose %d\n", ptr->getId() ) );
 						ptr->disconnect();
 						m_clientService.removeService( ptr->getService().get() );
 						m_mapTempClient.insert( std::make_pair( ptr->getId(), ptr ) );
@@ -553,11 +573,12 @@ void CMyASIODlg::doServerSend()
 	{
 		return;
 	}
-	m_serverSendTime++;
-	if ( m_ptrServer )
-	{
-		m_ptrServer->testSendDirectly();
-	}
+	XAsioBuffer buffer;
+	XAsioSendPacket packet( 1 );
+	packet << std::string( "from server" );
+	packet << int( 123456 );
+	packet.output( buffer );
+	m_ptrServer->sendToAll( buffer );
 }
 void CMyASIODlg::doClientSend()
 {
@@ -566,13 +587,22 @@ void CMyASIODlg::doClientSend()
 		return;
 	}
 	mutex::scoped_lock lock( m_listMutex );
-
-	m_clientSendTime++;
 	auto it = std::begin( m_mapClient );
 	for ( ; it != std::end( m_mapClient ); it++ )
 	{
 		CLIENT_PTR ptr = it->second;
-		ptr->sendTestPackage();
+		XAsioBuffer buffer;
+		XAsioSendPacket packet( 1 );
+		std::string s = "from client";
+		s += ptr->getId();
+		packet << s;
+		packet << int( 123456 );
+		char text[256];
+		memset( text, 1, sizeof(text) - 1 );
+		text[255] = 0;
+		packet << text;
+		packet.output( buffer );
+		ptr->send( buffer );
 	}
 }
 void CMyASIODlg::OnTimer(UINT_PTR nIDEvent)
