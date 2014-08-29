@@ -13,41 +13,56 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="asio">
-      <UniqueIdentifier>{2b4ef948-f8ca-4192-9ea4-17612071a90e}</UniqueIdentifier>
+    <Filter Include="xgame">
+      <UniqueIdentifier>{1707e68a-af94-4e7f-a539-be13ac7d78c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asio\include">
-      <UniqueIdentifier>{65eb437b-d66a-43a3-8f42-790aba294b29}</UniqueIdentifier>
+    <Filter Include="xgame\util">
+      <UniqueIdentifier>{037ef689-b1ed-4c65-948a-cbf026132542}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asio\src">
-      <UniqueIdentifier>{d575f292-70ac-46e2-a22f-d1573e414ecb}</UniqueIdentifier>
+    <Filter Include="xgame\util\src">
+      <UniqueIdentifier>{5d74f622-5226-4064-80cb-b60ca698e9a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asio\include\base">
-      <UniqueIdentifier>{d3ae15e3-d7a6-4587-b9ac-43d0d0d49463}</UniqueIdentifier>
+    <Filter Include="xgame\util\include">
+      <UniqueIdentifier>{db907733-3cd9-44fc-b729-c7bb6ad3d8ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asio\include\extend">
-      <UniqueIdentifier>{121e6e0b-61da-4bac-a07f-01773e392621}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\include\util">
-      <UniqueIdentifier>{6e16ea52-fa9f-4d5f-9e44-74582c38b438}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\src\unfinished">
-      <UniqueIdentifier>{aee5735d-1845-4e3c-95c3-0f22cc1382bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\src\extend">
-      <UniqueIdentifier>{4f3a8b3e-d01e-4287-b533-355e11986653}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\src\util">
-      <UniqueIdentifier>{cc46b016-564e-43e3-bb5a-f0bd20318d76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\src\base">
-      <UniqueIdentifier>{684bc56e-1007-4fe7-a25f-e30462680429}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="asio\include\db">
+    <Filter Include="xgame\db">
       <UniqueIdentifier>{e48858dd-f642-4519-b68a-e63a54084006}</UniqueIdentifier>
     </Filter>
-    <Filter Include="asio\include\unfinished">
+    <Filter Include="xgame\asio">
+      <UniqueIdentifier>{2b4ef948-f8ca-4192-9ea4-17612071a90e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\asio\include">
+      <UniqueIdentifier>{65eb437b-d66a-43a3-8f42-790aba294b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\asio\include\base">
+      <UniqueIdentifier>{d3ae15e3-d7a6-4587-b9ac-43d0d0d49463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\asio\include\extend">
+      <UniqueIdentifier>{121e6e0b-61da-4bac-a07f-01773e392621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\asio\include\util">
+      <UniqueIdentifier>{6e16ea52-fa9f-4d5f-9e44-74582c38b438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\asio\include\unfinished">
       <UniqueIdentifier>{e8a1ec59-7ab8-45a0-bf6d-be4544bcfed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\asio\src">
+      <UniqueIdentifier>{d575f292-70ac-46e2-a22f-d1573e414ecb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\asio\src\unfinished">
+      <UniqueIdentifier>{aee5735d-1845-4e3c-95c3-0f22cc1382bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\asio\src\extend">
+      <UniqueIdentifier>{4f3a8b3e-d01e-4287-b533-355e11986653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\asio\src\util">
+      <UniqueIdentifier>{cc46b016-564e-43e3-bb5a-f0bd20318d76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\asio\src\base">
+      <UniqueIdentifier>{684bc56e-1007-4fe7-a25f-e30462680429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xgame\extend">
+      <UniqueIdentifier>{9739d6d7-f0ff-45ec-8574-563e519b3e45}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,106 +93,196 @@
     <ClInclude Include="TestXAsio.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\util\XLog.h">
-      <Filter>asio\src\util</Filter>
-    </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioBase.h">
-      <Filter>asio\include\base</Filter>
+      <Filter>xgame\asio\include\base</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioInterface.h">
-      <Filter>asio\include\base</Filter>
+      <Filter>xgame\asio\include\base</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioService.h">
-      <Filter>asio\include\base</Filter>
+      <Filter>xgame\asio\include\base</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioHelper.h">
-      <Filter>asio\include\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioPackage.h">
-      <Filter>asio\include\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioPacker.h">
-      <Filter>asio\include\util</Filter>
+      <Filter>xgame\asio\include\util</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioPool.h">
-      <Filter>asio\include\util</Filter>
+      <Filter>xgame\asio\include\util</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioTimer.h">
-      <Filter>asio\include\util</Filter>
+      <Filter>xgame\asio\include\util</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioClient.h">
-      <Filter>asio\include\extend</Filter>
+      <Filter>xgame\asio\include\extend</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioServer.h">
-      <Filter>asio\include\extend</Filter>
+      <Filter>xgame\asio\include\extend</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioTCP.h">
-      <Filter>asio\include\extend</Filter>
+      <Filter>xgame\asio\include\extend</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioUDP.h">
-      <Filter>asio\include\extend</Filter>
+      <Filter>xgame\asio\include\extend</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioSession.h">
-      <Filter>asio\include\base</Filter>
+      <Filter>xgame\asio\include\base</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioSocket.h">
-      <Filter>asio\include\unfinished</Filter>
+      <Filter>xgame\asio\include\unfinished</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioTCPSocket.h">
-      <Filter>asio\include\unfinished</Filter>
+      <Filter>xgame\asio\include\unfinished</Filter>
     </ClInclude>
     <ClInclude Include="MysqlDialog.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\db\XDBMysql.h">
+      <Filter>xgame\db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPacker.h">
+      <Filter>xgame\asio\include\unfinished</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioStat.h">
+      <Filter>xgame\asio\src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPacket.h">
+      <Filter>xgame\asio\include\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\util\XLog.h">
+      <Filter>xgame\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\util\XSerializtion.h">
+      <Filter>xgame\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\util\XSingleton.h">
+      <Filter>xgame\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\util\XStringUtil.h">
+      <Filter>xgame\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\util\XDataTable.h">
+      <Filter>xgame\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\util\XCSVParser.h">
+      <Filter>xgame\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\util\XTicker.h">
+      <Filter>xgame\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\util\XDataTable.hpp">
+      <Filter>xgame\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XInterface.h">
+      <Filter>xgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\XApi.h">
+      <Filter>xgame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPacket.hpp">
+      <Filter>xgame\asio\include\util</Filter>
+    </ClInclude>
+    <ClInclude Include="SrvGroupDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\extend\XServerGroup.h">
+      <Filter>xgame\extend</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\extend\XServerGroupMsg.h">
+      <Filter>xgame\extend</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyASIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MyASIODlg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\util\XLog.cpp">
-      <Filter>asio\src\util</Filter>
-    </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioPacker.cpp">
-      <Filter>asio\src\unfinished</Filter>
+      <Filter>xgame\asio\src\unfinished</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioSocket.cpp">
-      <Filter>asio\src\unfinished</Filter>
+      <Filter>xgame\asio\src\unfinished</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioInterface.cpp">
-      <Filter>asio\src\base</Filter>
+      <Filter>xgame\asio\src\base</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioService.cpp">
-      <Filter>asio\src\base</Filter>
+      <Filter>xgame\asio\src\base</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioSession.cpp">
-      <Filter>asio\src\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioHelper.cpp">
-      <Filter>asio\src\util</Filter>
+      <Filter>xgame\asio\src\base</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioClient.cpp">
-      <Filter>asio\src\extend</Filter>
+      <Filter>xgame\asio\src\extend</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioUDP.cpp">
-      <Filter>asio\src\extend</Filter>
+      <Filter>xgame\asio\src\extend</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioServer.cpp">
-      <Filter>asio\src\extend</Filter>
+      <Filter>xgame\asio\src\extend</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCP.cpp">
-      <Filter>asio\src\extend</Filter>
+      <Filter>xgame\asio\src\extend</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPSocket.cpp">
-      <Filter>asio\src\unfinished</Filter>
+      <Filter>xgame\asio\src\unfinished</Filter>
     </ClCompile>
     <ClCompile Include="MysqlDialog.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\db\XDBMysql.cpp">
+      <Filter>xgame\db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioStat.cpp">
+      <Filter>xgame\asio\src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioTimer.cpp">
+      <Filter>xgame\asio\src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioPacket.cpp">
+      <Filter>xgame\asio\src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\util\XLog.cpp">
+      <Filter>xgame\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\util\XSerializtion.cpp">
+      <Filter>xgame\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\util\XStringUtil.cpp">
+      <Filter>xgame\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\util\XTicker.cpp">
+      <Filter>xgame\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\util\XCSVParser.cpp">
+      <Filter>xgame\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="SrvGroupDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupGate.cpp">
+      <Filter>xgame\extend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupLog.cpp">
+      <Filter>xgame\extend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroup.cpp">
+      <Filter>xgame\extend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupCenter.cpp">
+      <Filter>xgame\extend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupDB.cpp">
+      <Filter>xgame\extend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupWorld.cpp">
+      <Filter>xgame\extend</Filter>
+    </ClCompile>
+    <ClCompile Include="MyASIODlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupTestClient.cpp">
+      <Filter>xgame\extend</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -41,8 +42,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>F:\incoming\mysql-connector-c++-noinstall-1.1.3-win32\include;C:\Program Files\Visual Leak Detector\include;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\incoming\mysql-connector-c++-noinstall-1.1.3-win32\src;C:\Program Files\Visual Leak Detector\lib\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>F:\incoming\asio_wrapper_vs2010\asiowrapper\include;F:\incoming\mysql-connector-c++-noinstall-1.1.4-win32\include;F:\incoming\mysql-connector-c++-noinstall-1.1.4-win32\include\cppconn;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\incoming\mysql-connector-c++-noinstall-1.1.4-winx32\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -57,6 +58,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>mysqlcppconn.lib;mysqlcppconn-static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\incoming\mysql-connector-c++-noinstall-1.1.4-win32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -83,6 +86,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Program Files\MySQL\MySQL Connector C++ 1.1.4\lib\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -105,42 +109,72 @@
     <ClInclude Include="..\asiowrapper\include\asio\XAsioClient.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioHelper.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioInterface.h" />
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioPackage.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioPacker.h" />
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPacket.h" />
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioPacket.hpp" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioPool.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioServer.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioService.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioSession.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioSocket.h" />
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioStat.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioTCP.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioTCPSocket.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioTimer.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioUDP.h" />
+    <ClInclude Include="..\asiowrapper\include\db\XDBMysql.h" />
+    <ClInclude Include="..\asiowrapper\include\extend\XServerGroup.h" />
+    <ClInclude Include="..\asiowrapper\include\extend\XServerGroupMsg.h" />
+    <ClInclude Include="..\asiowrapper\include\util\XCSVParser.h" />
+    <ClInclude Include="..\asiowrapper\include\util\XDataTable.h" />
+    <ClInclude Include="..\asiowrapper\include\util\XDataTable.hpp" />
     <ClInclude Include="..\asiowrapper\include\util\XLog.h" />
+    <ClInclude Include="..\asiowrapper\include\util\XSerializtion.h" />
+    <ClInclude Include="..\asiowrapper\include\util\XSingleton.h" />
+    <ClInclude Include="..\asiowrapper\include\util\XStringUtil.h" />
+    <ClInclude Include="..\asiowrapper\include\util\XTicker.h" />
+    <ClInclude Include="..\asiowrapper\include\XApi.h" />
+    <ClInclude Include="..\asiowrapper\include\XInterface.h" />
     <ClInclude Include="MyASIO.h" />
     <ClInclude Include="MyASIODlg.h" />
     <ClInclude Include="MysqlDialog.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SrvGroupDlg.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestXAsio.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioClient.cpp" />
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioHelper.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioInterface.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioPacker.cpp" />
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioPacket.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioServer.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioService.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioSession.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioSocket.cpp" />
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioStat.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCP.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPSocket.cpp" />
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioTimer.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioUDP.cpp" />
+    <ClCompile Include="..\asiowrapper\src\db\XDBMysql.cpp" />
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroup.cpp" />
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupCenter.cpp" />
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupDB.cpp" />
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupGate.cpp" />
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupLog.cpp" />
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupTestClient.cpp" />
+    <ClCompile Include="..\asiowrapper\src\extend\XServerGroupWorld.cpp" />
+    <ClCompile Include="..\asiowrapper\src\util\XCSVParser.cpp" />
     <ClCompile Include="..\asiowrapper\src\util\XLog.cpp" />
+    <ClCompile Include="..\asiowrapper\src\util\XSerializtion.cpp" />
+    <ClCompile Include="..\asiowrapper\src\util\XStringUtil.cpp" />
+    <ClCompile Include="..\asiowrapper\src\util\XTicker.cpp" />
     <ClCompile Include="MyASIO.cpp" />
     <ClCompile Include="MyASIODlg.cpp" />
     <ClCompile Include="MysqlDialog.cpp" />
+    <ClCompile Include="SrvGroupDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

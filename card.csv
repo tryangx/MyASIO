@@ -1,0 +1,6 @@
+ushort,string,ushort,string,string,bool
+编号,卡片名称,激活码类型,奖励1,奖励2,是否有效
+ID,Name,Type,Reward1,Reward2,IsValid
+1,新手开服礼包,101,24015:1,,1
+2,工会礼包,102,24016:1,,1
+3,玩家入群好礼,103,24017:1,,1

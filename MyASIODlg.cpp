@@ -157,7 +157,10 @@ BOOL CMyASIODlg::OnInitDialog()
 	cardLoader.load();
 
 	// TODO: 在此添加额外的初始化代码
-	m_iPort = 8888;//9999;	
+	m_iPort = 8888;//9999;
+	CString sPort;
+	sPort.Format( _T("%d"), m_iPort );
+	GetDlgItem( IDC_EDIT_PORT )->SetWindowText( sPort );
 
 	GetDlgItem( IDC_EDIT_CREATE_TIMES )->SetWindowText( CString( "100" ) );
 
@@ -277,12 +280,12 @@ void CMyASIODlg::OnBnClickedButtonStartserver()
 	{
 		m_ptrServer = boost::shared_ptr<class XServer>( new XServer( m_serverService ) );		
 	}
-	m_ptrServer->setLogHandler( &CMyASIODlg::onServerLog, this );
+	m_ptrServer->setLogHandler( std::bind( &CMyASIODlg::onServerLog, this, std::placeholders::_1 ) );
 	m_ptrServer->setAddress( m_iPort );
 	m_ptrServer->setAcceptThreadNum( 1 );
 	m_ptrServer->startServer();
 
-	m_serverService.startService( m_ptrServer->getService().get() );
+	m_serverService.startService( m_ptrServer->getService().get(), 2 );
 
 	m_iStartServerTick = GetTickCount();
 
@@ -291,20 +294,22 @@ void CMyASIODlg::OnBnClickedButtonStartserver()
 
 void CMyASIODlg::onConsumeThread()
 {
-	if ( m_ptrServer )
+	while( true )
 	{
-		XAsioRecvPacket packet;
-		if ( m_ptrServer->queryRecvPacket( packet ) )
+		boost::this_thread::interruption_point();
+		if ( m_ptrServer )
 		{
-			std::string s;
-			int v = 0;
-			char text[256];
-			packet >> s;
-			packet >> v;
-			packet >> text;
-			TRACE( "recv" );
-			TRACE( s.c_str() );
-			TRACE( text );
+			XAsioRecvPacket packet;
+			if ( m_ptrServer->queryRecvPacket( packet ) )
+			{
+				std::string s;
+				int v = 0;
+				packet >> s;
+				packet >> v;
+				TRACE( "recv" );
+				TRACE( s.c_str() );
+				TRACE( "\n" );
+			}
 		}
 	}
 }
@@ -419,6 +424,8 @@ void CMyASIODlg::doClose()
 	KillTimer( SERVER_SEND_TIMER );
 	KillTimer( CLIENT_SEND_TIMER );
 
+	m_consumeThread.interrupt();
+
 	TRACE( "!!!!!!thread exit\n" );
 
 	mutex::scoped_lock lock( m_listMutex );
@@ -444,11 +451,12 @@ void CMyASIODlg::doClose()
 	}
 	TRACE( "!!!!!!thread server\n" );
 
+/*
 	while( m_clientService.isStarted() && m_clientService.isRunning()
 		|| ( m_serverService.isStarted() && m_serverService.isRunning() ) )
 	{
 		this_thread::sleep( posix_time::milliseconds( 1000 ) );
-	}
+	}*/
 	m_log.writeLog( "doclose" );
 }
 
@@ -500,11 +508,11 @@ void CMyASIODlg::doCreateClient()
 			bAddClient = true;
 			m_idCounter++;
 			CLIENT_PTR client = CLIENT_PTR( new XClient( m_clientService ) );						
-			client->setId( m_idCounter );
+			client->setClientId( m_idCounter );
 			client->setAddress( "localhost", m_iPort );
 			client->connect();
 			m_clientService.startService( client->getService().get(), 1 );
-			m_mapClient.insert( std::make_pair( client->getId(), client ) );
+			m_mapClient.insert( std::make_pair( client->getClientId(), client ) );
 			if ( m_bTestEcho )
 			{
 				client->testEcho();
@@ -557,7 +565,7 @@ void CMyASIODlg::doCloseClient()
 						//TRACE( outputString( "tryclose %d\n", ptr->getId() ) );
 						ptr->disconnect();
 						m_clientService.removeService( ptr->getService().get() );
-						m_mapTempClient.insert( std::make_pair( ptr->getId(), ptr ) );
+						m_mapTempClient.insert( std::make_pair( ptr->getClientId(), ptr ) );
 						m_mapClient.erase( it );
 						break;
 					}						
@@ -593,14 +601,15 @@ void CMyASIODlg::doClientSend()
 		CLIENT_PTR ptr = it->second;
 		XAsioBuffer buffer;
 		XAsioSendPacket packet( 1 );
-		std::string s = "from client";
-		s += ptr->getId();
+		char text[256];
+		sprintf( text, "from client %d" ,ptr->getClientId() );
+		std::string s = text;
 		packet << s;
 		packet << int( 123456 );
-		char text[256];
-		memset( text, 1, sizeof(text) - 1 );
-		text[255] = 0;
-		packet << text;
+//		char text[256];
+//		memset( text, 1, sizeof(text) - 1 );
+//		text[255] = 0;
+//		packet << text;
 		packet.output( buffer );
 		ptr->send( buffer );
 	}

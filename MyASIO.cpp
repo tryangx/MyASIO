@@ -5,8 +5,10 @@
 #include "stdafx.h"
 #include "MyASIO.h"
 #include "MyASIODlg.h"
+#include "MysqlDialog.h"
+#include "SrvGroupDlg.h"
 
-#include <vld.h>
+//#include <vld.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -67,8 +69,10 @@ BOOL CMyASIOApp::InitInstance()
 	// TODO: 应适当修改该字符串，
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
-
-	CMyASIODlg dlg;
+	
+	//CMyASIODlg dlg;
+	//CMysqlDialog dlg;
+	CSrvGroupDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)
