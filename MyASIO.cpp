@@ -8,7 +8,7 @@
 #include "MysqlDialog.h"
 #include "SrvGroupDlg.h"
 
-//#include <vld.h>
+#include <vld.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

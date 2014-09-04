@@ -45,7 +45,7 @@ BOOL CMysqlDialog::OnInitDialog()
 	GetDlgItem( IDC_EDIT_PASSWORD )->SetWindowText( CString( "test" ) );
 	GetDlgItem( IDC_EDIT_SYNTAX )->SetWindowText( CString( "select * from account" ) );
 
-	m_mysql.setLogHandler( &CMysqlDialog::onLog, this);
+	m_mysql.setLogHandler( std::bind( &CMysqlDialog::onLog, this, std::placeholders::_1 ) );
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE

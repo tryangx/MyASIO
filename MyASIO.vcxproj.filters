@@ -221,9 +221,6 @@
     <ClCompile Include="..\asiowrapper\src\asio\XAsioServer.cpp">
       <Filter>xgame\asio\src\extend</Filter>
     </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioTCP.cpp">
-      <Filter>xgame\asio\src\extend</Filter>
-    </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPSocket.cpp">
       <Filter>xgame\asio\src\unfinished</Filter>
     </ClCompile>
@@ -283,6 +280,15 @@
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\extend\XServerGroupTestClient.cpp">
       <Filter>xgame\extend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPSession.cpp">
+      <Filter>xgame\asio\src\extend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPClient.cpp">
+      <Filter>xgame\asio\src\extend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPServer.cpp">
+      <Filter>xgame\asio\src\extend</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

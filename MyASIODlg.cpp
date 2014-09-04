@@ -310,6 +310,10 @@ void CMyASIODlg::onConsumeThread()
 				TRACE( s.c_str() );
 				TRACE( "\n" );
 			}
+			else
+			{
+				this_thread::sleep(get_system_time() + posix_time::milliseconds(10));
+			}
 		}
 	}
 }
@@ -435,7 +439,7 @@ void CMyASIODlg::doClose()
 	{
 		CLIENT_PTR ptr = it->second;
 		ptr->disconnect();
-		m_clientService.removeService( ptr->getService().get() );
+		m_clientService.removeService( ptr->getService() );
 	}
 	m_clientService.stopAllServices();
 	//m_clientService.forceStopAllServices();
@@ -511,7 +515,7 @@ void CMyASIODlg::doCreateClient()
 			client->setClientId( m_idCounter );
 			client->setAddress( "localhost", m_iPort );
 			client->connect();
-			m_clientService.startService( client->getService().get(), 1 );
+			m_clientService.startService( client->getService(), 1 );
 			m_mapClient.insert( std::make_pair( client->getClientId(), client ) );
 			if ( m_bTestEcho )
 			{
@@ -564,7 +568,7 @@ void CMyASIODlg::doCloseClient()
 						m_iCloseClientCnt++;
 						//TRACE( outputString( "tryclose %d\n", ptr->getId() ) );
 						ptr->disconnect();
-						m_clientService.removeService( ptr->getService().get() );
+						m_clientService.removeService( ptr->getService() );
 						m_mapTempClient.insert( std::make_pair( ptr->getClientId(), ptr ) );
 						m_mapClient.erase( it );
 						break;

@@ -49,6 +49,16 @@ BOOL CSrvGroupDlg::OnInitDialog()
 
 	SetTimer( 1000, 1000, NULL );
 
+	m_ptrSrvService = boost::shared_ptr<class XAsioService>( new XAsioService );
+/*
+	stAppServerConfig config;
+	config.testGateConfig();
+	boost::shared_ptr<class XGateServer> gs( new XGateServer );
+	gs->setIoService( m_ptrSrvService );
+	gs->loadConfig( config );
+	gs->startServer();
+	SendMessage( WM_CLOSE, 0, 0 );*/
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
 }
@@ -68,41 +78,40 @@ void CSrvGroupDlg::addHistroy( const char* pStr )
 
 void CSrvGroupDlg::startAllServer()
 {
-	m_ptrSrvService = boost::shared_ptr<class XAsioService>( new XAsioService );
+	onLog( "start all server" );
 
-	stServerConfig config1, config2, config3, config4;
+	stAppServerConfig config1, config2, config3, config4;
 	config1.testGateConfig();
 	m_gateServer.setIoService( m_ptrSrvService );
 	m_gateServer.setLogHandler( std::bind( &CSrvGroupDlg::onLog, this, std::placeholders::_1 ));
-	m_gateServer.loadConfig( &config1 );
+	m_gateServer.loadConfig( config1 );
 	m_gateServer.startServer();	
 
 	config2.testWorldConfig();
 	m_worldServer.setIoService( m_ptrSrvService );
 	m_worldServer.setLogHandler( std::bind( &CSrvGroupDlg::onLog, this, std::placeholders::_1 ));
-	m_worldServer.loadConfig( &config2 );
+	m_worldServer.loadConfig( config2 );
 	m_worldServer.startServer();	
 
 	config3.testDBConfig();
 	m_dbServer.setIoService( m_ptrSrvService );
 	m_dbServer.setLogHandler( std::bind( &CSrvGroupDlg::onLog, this, std::placeholders::_1 ));
-	m_dbServer.loadConfig( &config3 );
+	m_dbServer.loadConfig( config3 );
 	m_dbServer.startServer();
 
 	config4.testLogConfig();
 	m_logServer.setIoService( m_ptrSrvService );
 	m_logServer.setLogHandler( std::bind( &CSrvGroupDlg::onLog, this, std::placeholders::_1 ));
-	m_logServer.loadConfig( &config4 );
+	m_logServer.loadConfig( config4 );
 	m_logServer.startServer();	
-		
-/*
+
 	m_worldServer.connectAppServer();
 	m_logServer.connectAppServer();
 	m_gateServer.connectAppServer();
 	m_dbServer.connectAppServer();
-	return;
-*/
 
+	onLog( "-----------" );
+	
 	int port = 0;
 	std::string ip;
 	m_gateServer.queryAddress( ip, port );
@@ -115,17 +124,20 @@ void CSrvGroupDlg::closeAllServer()
 {
 	m_bIsExit = true;
 
+	return;	
+	m_clientPool.clear();
+	
 	//m_centerServer.stopServer();
 	m_dbServer.stopServer();	
 	m_gateServer.stopServer();
 	m_worldServer.stopServer();
 	m_logServer.stopServer();
+/*
 	if ( m_ptrSrvService )
 	{
 		m_ptrSrvService->stopAllServices();
-	}
-
-	m_clientPool.clear();
+	}*/
+	//Sleep( 1000 );
 }
 
 void CSrvGroupDlg::onLog( const char* pLog )

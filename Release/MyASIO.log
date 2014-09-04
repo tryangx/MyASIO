@@ -1,0 +1,56 @@
+﻿生成启动时间为 2014/9/1 星期一 21:13:26。
+     1>项目“F:\incoming\asio_wrapper_vs2010\MyASIO\MyASIO.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在对“Release\MyASIO.unsuccessfulbuild”执行 Touch 任务。
+       ClCompile:
+         所有输出均为最新。
+         所有输出均为最新。
+       ResourceCompile:
+         所有输出均为最新。
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\incoming\asio_wrapper_vs2010\Release\MyASIO.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"F:\incoming\mysql-connector-c++-noinstall-1.1.4-win32\lib" /LIBPATH:"f:\Program Files (x86)\Visual Leak Detector\lib\Win32" mysqlcppconn.lib "mysqlcppconn-static.lib" /MANIFEST /ManifestFile:"Release\MyASIO.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"F:\incoming\asio_wrapper_vs2010\Release\MyASIO.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\incoming\asio_wrapper_vs2010\Release\MyASIO.lib" /MACHINE:X86 Release\MyASIO.res
+         Release\XAsioClient.obj
+         Release\XAsioInterface.obj
+         Release\XAsioPacker.obj
+         Release\XAsioPacket.obj
+         Release\XAsioServer.obj
+         Release\XAsioService.obj
+         Release\XAsioSession.obj
+         Release\XAsioSocket.obj
+         Release\XAsioStat.obj
+         Release\XAsioTCP.obj
+         Release\XAsioTCPSocket.obj
+         Release\XAsioTimer.obj
+         Release\XAsioUDP.obj
+         Release\XDBMysql.obj
+         Release\XServerGroup.obj
+         Release\XServerGroupCenter.obj
+         Release\XServerGroupDB.obj
+         Release\XServerGroupGate.obj
+         Release\XServerGroupLog.obj
+         Release\XServerGroupTestClient.obj
+         Release\XServerGroupWorld.obj
+         Release\XCSVParser.obj
+         Release\XLog.obj
+         Release\XSerializtion.obj
+         Release\XStringUtil.obj
+         Release\XTicker.obj
+         Release\MyASIO.obj
+         Release\MyASIODlg.obj
+         Release\MysqlDialog.obj
+         Release\SrvGroupDlg.obj
+         Release\stdafx.obj
+            正在创建库 F:\incoming\asio_wrapper_vs2010\Release\MyASIO.lib 和对象 F:\incoming\asio_wrapper_vs2010\Release\MyASIO.exp
+         正在生成代码
+         已完成代码的生成
+         MyASIO.vcxproj -> F:\incoming\asio_wrapper_vs2010\Release\MyASIO.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"F:\incoming\asio_wrapper_vs2010\Release\MyASIO.exe;#1" /manifest Release\MyASIO.exe.intermediate.manifest "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\Include\Manifest\dpiaware.manifest"
+       FinalizeBuildStatus:
+         正在删除文件“Release\MyASIO.unsuccessfulbuild”。
+         正在对“Release\MyASIO.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“F:\incoming\asio_wrapper_vs2010\MyASIO\MyASIO.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:22.23
