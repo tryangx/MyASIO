@@ -20,6 +20,9 @@ class CSrvGroupDlg : public CDialogEx
 
 	bool			m_bIsExit;
 
+	boost::mutex	m_logMutex;
+
+	bool			m_bShowHistroy;
 	CString			m_sHistroy;
 	void			addHistroy( const char* pStr );
 	void			onLog( const char* pLog );

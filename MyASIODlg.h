@@ -38,9 +38,9 @@ public:
 	int			m_iStartServerTick;
 	int			m_iCloseClientCnt;
 
-	thread		m_consumeThread;
+	boost::thread	m_consumeThread;
 	
-	bool		m_bTestEcho;
+	bool			m_bTestEcho;
 
 	XLogUtil	m_log;
 
@@ -54,6 +54,8 @@ public:
 
 	void		addHistroy( CString& s, CEdit& edit, LPCSTR pStr );
 	void		doClose();
+
+	void		closeClient( unsigned int id );
 	
 	void		doUpdateInfo();
 	void		doCreateClient();
@@ -65,6 +67,7 @@ public:
 	void		onRunClientService();
 	void		onServerLog( const char* pStr );
 	void		onClientLog( const char* pStr );
+	void		onCloseClient( size_t id );
 
 public:
 	CMyASIODlg(CWnd* pParent = NULL);	// 标准构造函数

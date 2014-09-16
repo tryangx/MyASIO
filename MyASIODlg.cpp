@@ -203,9 +203,7 @@ BOOL CMyASIODlg::OnInitDialog()
 	m_log.writeLog( "startup" );
 
 	SetTimer( 1000, TIME_INTERVAL, NULL );
-
-	XClient::setLog( std::bind( &CMyASIODlg::onClientLog, this, std::placeholders::_1 ) );
-
+	
 	outputString( "hello %d", 128 );
 	
 	XAsioPacket packet;
@@ -289,35 +287,45 @@ void CMyASIODlg::OnBnClickedButtonStartserver()
 
 	m_iStartServerTick = GetTickCount();
 
-	m_consumeThread = thread( boost::bind( &CMyASIODlg::onConsumeThread, this ) );
+	m_consumeThread.interrupt();
+	m_consumeThread = boost::thread( boost::bind( &CMyASIODlg::onConsumeThread, this ) );
 }
 
 void CMyASIODlg::onConsumeThread()
 {
-	while( true )
+	try
 	{
-		boost::this_thread::interruption_point();
-		if ( m_ptrServer )
+		while( true )
 		{
-			XAsioRecvPacket packet;
-			if ( m_ptrServer->queryRecvPacket( packet ) )
+			boost::this_thread::interruption_point();
+			if ( m_ptrServer )
 			{
-				std::string s;
-				int v = 0;
-				packet >> s;
-				packet >> v;
-				TRACE( "recv" );
-				TRACE( s.c_str() );
-				TRACE( "\n" );
-			}
-			else
-			{
-				this_thread::sleep(get_system_time() + posix_time::milliseconds(10));
+				XAsioRecvPacket packet;
+				if ( m_ptrServer->queryRecvPacket( packet ) )
+				{
+					std::string s;
+					int v = 0;
+					packet >> s;
+					packet >> v;
+					TRACE( "recv" );
+					TRACE( s.c_str() );
+					TRACE( "\n" );
+				}
+				else
+				{
+					this_thread::sleep(get_system_time() + posix_time::milliseconds(10));
+				}
 			}
 		}
 	}
+	catch(...)
+	{
+	}
 }
-
+void CMyASIODlg::onCloseClient( size_t id )
+{
+	closeClient( id );
+}
 void CMyASIODlg::onServerLog( const char* str )
 {
 	mutex::scoped_lock lock( m_serverMutex );
@@ -415,6 +423,7 @@ void CMyASIODlg::OnBnClickedButtonStopserver()
 		//m_serverService.stopService( m_ptrServer->getService().get() );
 		m_serverService.stopAllServices();
 	}	
+	m_consumeThread.interrupt();
 }
 
 void CMyASIODlg::doClose()
@@ -474,8 +483,8 @@ void CMyASIODlg::doUpdateInfo()
 
 	int time = ( GetTickCount() - m_iStartServerTick ) / 1000;
 
-	in = XAsioStatServerAgent::getMutableInstance()->getTotalRecvSize();
-	out = XAsioStatServerAgent::getMutableInstance()->getTotalSendSize();
+	in = m_ptrServer ? m_ptrServer->getStat()->getTotalRecvSize() : 0;
+	out = m_ptrServer ? m_ptrServer->getStat()->getTotalSendSize() : 0;
 	int cnt = m_ptrServer ? m_ptrServer->getClientCount() : 0;	
 	s = outputString( "Time:%d\nAccept:%d\nRecv:%dK\nSend:%dK(%.1f KB/s)", 
 			time, cnt, in / 1024, out / 1024, (double)out / ( 1024 * time ) );	
@@ -498,6 +507,11 @@ void CMyASIODlg::doCreateClient()
 {
 	mutex::scoped_lock lock( m_listMutex );
 
+	if ( !m_ptrServer || !m_ptrServer->isStarted() )
+	{
+		return;
+	}
+
 	CString s;
 	GetDlgItem( IDC_EDIT_CREATE_TIMES )->GetWindowText( s );
 	int concurrentCnt = boost::lexical_cast<int>( s.GetBuffer(0) );//10 + rand() % 40;
@@ -515,6 +529,8 @@ void CMyASIODlg::doCreateClient()
 			client->setClientId( m_idCounter );
 			client->setAddress( "localhost", m_iPort );
 			client->connect();
+			client->setLogHandler( std::bind( &CMyASIODlg::onClientLog, this, std::placeholders::_1 ) );
+			client->setCloseHandler( std::bind( &CMyASIODlg::onCloseClient, this, std::placeholders::_1 ) );
 			m_clientService.startService( client->getService(), 1 );
 			m_mapClient.insert( std::make_pair( client->getClientId(), client ) );
 			if ( m_bTestEcho )
@@ -529,6 +545,24 @@ void CMyASIODlg::doCreateClient()
 		//TRACE( outputString( "connect finished %d\n", endTick - begTick ) );
 	}
 	lock.unlock();
+}
+void CMyASIODlg::closeClient( unsigned int id )
+{
+	mutex::scoped_lock lock( m_listMutex );
+	auto it = std::begin( m_mapClient );
+	for ( ; it != std::end( m_mapClient ); it++ )
+	{
+		CLIENT_PTR& ptr = it->second;
+		if ( ptr->getClientId() == id )
+		{
+			m_iCloseClientCnt++;
+			ptr->disconnect();
+			m_clientService.removeService( ptr->getService() );
+			m_mapTempClient.insert( std::make_pair( ptr->getClientId(), ptr ) );
+			m_mapClient.erase( it );
+			break;
+		}
+	}
 }
 void CMyASIODlg::doCloseClient()
 {
@@ -555,6 +589,7 @@ void CMyASIODlg::doCloseClient()
 		int del = rand() % 5 + 1;
 		for ( int left = 0; left < del && !m_mapClient.empty(); left++ )
 		{
+			inx = 0;
 			int targetIndex = rand() % m_mapClient.size();
 			//targetIndex = 0;
 			auto it = std::begin( m_mapClient );
