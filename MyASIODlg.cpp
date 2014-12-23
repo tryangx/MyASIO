@@ -278,7 +278,7 @@ void CMyASIODlg::OnBnClickedButtonStartserver()
 	{
 		m_ptrServer = boost::shared_ptr<class XServer>( new XServer( m_serverService ) );		
 	}
-	m_ptrServer->setLogHandler( std::bind( &CMyASIODlg::onServerLog, this, std::placeholders::_1 ) );
+	//m_ptrServer->setLogHandler( std::bind( &CMyASIODlg::onServerLog, this, std::placeholders::_1 ) );
 	m_ptrServer->setAddress( m_iPort );
 	m_ptrServer->setAcceptThreadNum( 1 );
 	m_ptrServer->startServer();
@@ -307,9 +307,9 @@ void CMyASIODlg::onConsumeThread()
 					int v = 0;
 					packet >> s;
 					packet >> v;
-					TRACE( "recv" );
-					TRACE( s.c_str() );
-					TRACE( "\n" );
+//					TRACE( "recv" );
+//					TRACE( s.c_str() );
+//					TRACE( "\n" );
 				}
 				else
 				{
@@ -529,7 +529,7 @@ void CMyASIODlg::doCreateClient()
 			client->setClientId( m_idCounter );
 			client->setAddress( "localhost", m_iPort );
 			client->connect();
-			client->setLogHandler( std::bind( &CMyASIODlg::onClientLog, this, std::placeholders::_1 ) );
+			//client->setLogHandler( std::bind( &CMyASIODlg::onClientLog, this, std::placeholders::_1 ) );
 			client->setCloseHandler( std::bind( &CMyASIODlg::onCloseClient, this, std::placeholders::_1 ) );
 			m_clientService.startService( client->getService(), 1 );
 			m_mapClient.insert( std::make_pair( client->getClientId(), client ) );

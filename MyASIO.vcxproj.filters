@@ -96,9 +96,6 @@
     <ClInclude Include="..\asiowrapper\include\asio\XAsioBase.h">
       <Filter>xgame\asio\include\base</Filter>
     </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioInterface.h">
-      <Filter>xgame\asio\include\base</Filter>
-    </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioService.h">
       <Filter>xgame\asio\include\base</Filter>
     </ClInclude>
@@ -140,9 +137,6 @@
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioPacker.h">
       <Filter>xgame\asio\include\unfinished</Filter>
-    </ClInclude>
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioStat.h">
-      <Filter>xgame\asio\src\util</Filter>
     </ClInclude>
     <ClInclude Include="..\asiowrapper\include\asio\XAsioPacket.h">
       <Filter>xgame\asio\include\util</Filter>
@@ -189,6 +183,12 @@
     <ClInclude Include="..\asiowrapper\include\extend\XServerGroupMsg.h">
       <Filter>xgame\extend</Filter>
     </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioLog.h">
+      <Filter>xgame\asio\include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioStat.h">
+      <Filter>xgame\asio\include\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyASIO.cpp">
@@ -202,9 +202,6 @@
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioSocket.cpp">
       <Filter>xgame\asio\src\unfinished</Filter>
-    </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioInterface.cpp">
-      <Filter>xgame\asio\src\base</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioService.cpp">
       <Filter>xgame\asio\src\base</Filter>
@@ -240,9 +237,6 @@
       <Filter>xgame\asio\src\util</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\util\XLog.cpp">
-      <Filter>xgame\util\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\asiowrapper\src\util\XSerializtion.cpp">
       <Filter>xgame\util\src</Filter>
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\util\XStringUtil.cpp">
@@ -289,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioTCPServer.cpp">
       <Filter>xgame\asio\src\extend</Filter>
+    </ClCompile>
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioLog.cpp">
+      <Filter>xgame\asio\src\base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

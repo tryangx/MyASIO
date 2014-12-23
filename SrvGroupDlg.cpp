@@ -49,7 +49,7 @@ BOOL CSrvGroupDlg::OnInitDialog()
 
 	SetTimer( 1000, 1000, NULL );
 
-	m_ptrSrvService = boost::shared_ptr<class XAsioService>( new XAsioService );
+	m_ptrSrvService = boost::shared_ptr<class XAsioServiceController>( new XAsioServiceController );
 /*
 	stAppServerConfig config;
 	config.testGateConfig();
@@ -169,7 +169,10 @@ void CSrvGroupDlg::OnBnClickedCancel()
 
 void CSrvGroupDlg::OnBnClickedCreateClient()
 {
-	m_clientPool.createClient();
+	for ( int i = 0; i < 100; i++ )
+	{
+		m_clientPool.createClient();
+	}	
 }
 
 void CSrvGroupDlg::OnBnClickedStopClient()
@@ -237,6 +240,8 @@ void CSrvGroupDlg::OnTimer(UINT_PTR nIDEvent)
 				s.Format( _T("SrvConn: %d\r\n"), m_gateServer.getConnectorCnt() );
 				content += s;
 				s.Format( _T("SrvSess: %d\r\n"), m_gateServer.getAppServerCnt() );
+				content += s;
+				s.Format( _T("Client:  %d\r\n"), m_gateServer.getClientCnt() );
 				content += s;
 				if ( m_gateServer.getServer() )
 				{

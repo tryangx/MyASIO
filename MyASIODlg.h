@@ -24,8 +24,8 @@ class CMyASIODlg : public CDialogEx
 	int							m_iPort;
 	bool						m_bExit;
 public:
-	XAsioService						m_serverService;
-	XAsioService						m_clientService;
+	XAsioServiceController				m_serverService;
+	XAsioServiceController				m_clientService;
 	boost::shared_ptr<class XServer>	m_ptrServer;
 	int		m_iMaxClient;
 

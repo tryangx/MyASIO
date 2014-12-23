@@ -111,7 +111,7 @@
     <ClInclude Include="..\asiowrapper\include\asio\XAsioBase.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioClient.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioHelper.h" />
-    <ClInclude Include="..\asiowrapper\include\asio\XAsioInterface.h" />
+    <ClInclude Include="..\asiowrapper\include\asio\XAsioLog.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioPacker.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioPacket.h" />
     <ClInclude Include="..\asiowrapper\include\asio\XAsioPacket.hpp" />
@@ -149,7 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\asiowrapper\src\asio\XAsioClient.cpp" />
-    <ClCompile Include="..\asiowrapper\src\asio\XAsioInterface.cpp" />
+    <ClCompile Include="..\asiowrapper\src\asio\XAsioLog.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioPacker.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioPacket.cpp" />
     <ClCompile Include="..\asiowrapper\src\asio\XAsioServer.cpp" />
@@ -173,7 +173,6 @@
     <ClCompile Include="..\asiowrapper\src\extend\XServerGroupWorld.cpp" />
     <ClCompile Include="..\asiowrapper\src\util\XCSVParser.cpp" />
     <ClCompile Include="..\asiowrapper\src\util\XLog.cpp" />
-    <ClCompile Include="..\asiowrapper\src\util\XSerializtion.cpp" />
     <ClCompile Include="..\asiowrapper\src\util\XStringUtil.cpp" />
     <ClCompile Include="..\asiowrapper\src\util\XTicker.cpp" />
     <ClCompile Include="MyASIO.cpp" />

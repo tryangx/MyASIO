@@ -9,7 +9,8 @@ class CSrvGroupDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CSrvGroupDlg)
 	
-	boost::shared_ptr<class XAsioService>	m_ptrSrvService;
+	boost::shared_ptr<class XAsioServiceController>	m_ptrSrvService;
+	XAsioServiceController	m_controller;
 	XDBServer		m_dbServer;
 	XLogServer		m_logServer;
 	XWorldServer	m_worldServer;
